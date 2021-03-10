@@ -49,3 +49,16 @@ ExportLogToShell | Boolean on whether we want the log timeline exported to the s
 ExportPath | Path where we want to export the highlighted timeline into. The default value is the local path.
 LiveReview | Boolean on whether we want to do a live review of the timeline or not. The default value is False.
 Character | The character that we want to stamp in the logs between the logs for custom formatting preferences. The default value is "__".
+
+# Review:
+```
+#Review entire log in scrolling fashion:
+$ExchSetupLog | More
+```
+
+```
+#stage string for format of attempt 22 only
+$SearchString = “__22__” 
+#Then perform where object to find the desired
+$ExchSetupLog | ? {$_ -like “*”+$SearchString+”*”}
+```
