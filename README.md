@@ -1,4 +1,6 @@
 # ExchSetupLog-Assistant
+Download ExchSetupLog-Assistant:
+[![Downloads](https://img.shields.io/github/downloads/dpaulson45/HealthChecker/total.svg?label=Downloads&maxAge=9999)](https://github.com/davloe/ExchSetupLog-Assistant/releases):
 Warning! This function has 3 global variables that might overwrite variables with the same name: ExchSetupIndex, FocusedExchLog, and ExchSetupLog
 
 The ExchangeSetupLog-Assistant is intended to help you review ExchangeSetup.log to establish a timeline of the log, what was some of the statuses, and if there were errors, what were they?
