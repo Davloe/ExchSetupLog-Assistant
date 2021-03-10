@@ -19,7 +19,11 @@
 		#Do we want live review?
 		[boolean]$LiveReview = $false,
 		#What is the custom formatting we want between Attempt number and whether entry is Status,Timeline, or error
-		[string]$Character = "__"
+		[string]$Character = "__",
+		#Include Raw strings on exception:
+		[boolean]$RawStringonTermination = $true,
+		#Number of strings to include:
+		[int]$RawStringscount = "30"
 	)
 
 #Stage variable for the key point in log:
@@ -41,8 +45,10 @@ $TotalLog = GCI $Log |Sls $BaseString
 #stage an integer containing the total count of entries in the log
 [int]$TotalLogCount = $totallog.count
 Write-Host "There are " $totallogcount " entries in this log"
-#Ensure our loop count is at 0:
+#Ensure our counts are at 0:
 [int]$TerminalLoop = "0"
+[int]$I = "0"
+[int]$e =  "0"
 #Create index:
 $Global:ExchSetupIndex = New-Object PsCustomObject
 #Enter Foreach Loop for Index build & Key:
@@ -76,6 +82,8 @@ $Global:ExchSetupIndex = New-Object PsCustomObject
 		If ($entirelog -eq $true) {$Global:FocusedExchLog  = $TotalLog}
 ##Now let's search the specified range:
 Foreach ($entry in $FocusedExchLog) {
+	#Increment variable so we know where we are in the index:
+	$E ++
 	#If our entry matches our key:
 	If ($entry -like "*"+$key+"*") {
 		#add a blank entry to our log:
@@ -143,7 +151,16 @@ Foreach ($entry in $FocusedExchLog) {
 			#Stage search string
 			$SearchString = $Character+$AttemptCount+$Character+"*"
 			#Add the user specified amount of errors in this setup attempt to the log:
-			[string[]]$Review += $ErrorTable | ? {$_ -like $SearchString} | Select -Last $ErrorCount}
+			[string[]]$Review += $ErrorTable | ? {$_ -like $SearchString} | Select -Last $ErrorCount
+			#Determine where we are in the focused logs:
+			$Rawstart = $e - $rawstringscount
+			#add an entry to log if we specified raw lines:
+			If ($RawStringonTermination -eq $true) {
+			[String[]]$review += "=-=-=-=-Here are the last $RawStringscount entries in the log leading to termination-=-=-=-=-=
+				"
+			#Add the specified range to the review 
+			[string[]]$Review += $FocusedExchLog.Line[$rawstart..$e]}
+		}
 		#If entry is our key success:
 		If ($entry -match ('(' + [string]::Join(')|(', $SuccessStrings) + ')')) {
 			#Stage special string:
