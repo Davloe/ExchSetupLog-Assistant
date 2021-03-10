@@ -1,6 +1,6 @@
 ﻿Function ExchSetupLog-Assistant {
 	Param (
-		#Stage Variable for Exchange setup log path:
+		#Stage Variable for Exchange setup log path: Hi
 		$Log = ".\ExchangeSetup.log",
 		#Stage Variable for base string that we expect in every line of the log:
 		$BaseString = "]",
