@@ -49,6 +49,8 @@ ExportLogToShell | Boolean on whether we want the log timeline exported to the s
 ExportPath | Path where we want to export the highlighted timeline into. The default value is the local path.
 LiveReview | Boolean on whether we want to do a live review of the timeline or not. The default value is False.
 Character | The character that we want to stamp in the logs between the logs for custom formatting preferences. The default value is "__".
+RawStringOnTermination | This boolean specifies whether we want raw logs on terminal error or not. The default value is true.
+RawStringsCount | This is the number of lines you want to include when a terminal error is observed. The default value is 30.
 
 # Review:
 ```
